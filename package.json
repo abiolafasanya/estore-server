@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node ./dist/app.js",
+    "start": "node ./dist/app.js",
     "dev": "nodemon ./src/app.ts",
     "build": "npm install && tsc -p .",
     "key:generate": "openssl rand -hex 48"
