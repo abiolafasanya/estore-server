@@ -33,7 +33,7 @@ const startServer = () => {
   app.use(cookieParser());
   app.use(session(sess));
   app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:5173'],
+    origin: ['https://eshop-fashion.netlify.app', 'http://localhost:3000', 'http://localhost:5173'],
     credentials: true,
   }))
 
