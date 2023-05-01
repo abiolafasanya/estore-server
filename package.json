@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node ./dist/app.js",
     "dev": "nodemon ./src/app.ts",
-    "build": "tsc -p .",
+    "build": "npm install && tsc -p .",
     "key:generate": "openssl rand -hex 48"
   },
   "keywords": [],
