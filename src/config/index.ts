@@ -4,7 +4,7 @@ import { JwtPayload, Secret } from 'jsonwebtoken';
 dotenv.config();
 
 let mongo_uri;
-const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
+// const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
 
 switch (process.env.NODE_ENV) {
   case 'production':
@@ -12,10 +12,7 @@ switch (process.env.NODE_ENV) {
     // mongo_uri.pathname.concat(MONGO_PASSWORD as string)
     // mongo_uri.pathname.concat('@cluster0.uhz9qsw.mongodb.net')
     // mongo_uri.pathname.concat('tscapp')
-    mongo_uri =
-      'mongodb+srv://fastbeet:' +
-      MONGO_PASSWORD +
-      '@cluster0.uhz9qsw.mongodb.net/eshop';
+    mongo_uri =process.env.MONGODB
     break;
   case 'development':
     mongo_uri = 'mongodb://localhost/eshop';
