@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import { randomUUID } from 'crypto';
 import cors from 'cors'
+import { errorHandler, notFoundHandler, onRequestHandler } from './middleware/error';
 
 const app = express();
 
@@ -24,7 +25,9 @@ const sess: I_Session = {
 
 mongoose
   .connect(config.mongo.url, { retryWrites: true, w: 'majority' })
-  .then(() => console.log('connected to mongoose and mongodb', config.mongo.url))
+  .then(() =>
+    console.log('connected to mongoose and mongodb', config.mongo.url)
+  )
   .catch((error) => console.error(error.message));
 
 const startServer = () => {
@@ -32,39 +35,24 @@ const startServer = () => {
   app.use(express.json());
   app.use(cookieParser());
   app.use(session(sess));
-  app.use(cors({
-    origin: ['https://eshop-fashion.netlify.app', 'http://localhost:3000', 'http://localhost:5173'],
-    credentials: true,
-  }))
-
-  app.use((req: Request, res: Response, next: NextFunction) => {
-    // On request method
-    res.on('finish', () =>
-      console.log(
-        `Incoming request: -> Method: [${req.method}] -> Url [${req.url}]
-    -> IP [${req.socket.remoteAddress}] -> status: [${res.statusCode}]`
-      )
+  app.use(
+    cors({
+      origin: ['https://eshop-fashion.netlify.app', 'http://localhost:3500'],
+      credentials: true,
+    })
     );
-
-    next();
-  });
-
-  // error handler
-  app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-    error = new Error('Server Error');
-    console.error(error);
-    res.status(500).json({
-      message: error.message,
-    });
-  });
-
-  app.get('/ping', (req, res, next) =>
+    
+    app.get('/ping', (req, res, next) =>
     res.status(200).json({ message: 'pong' })
-  );
+    );
+    
+    // Routes
+    routers(app);
 
-  // Routes
-  routers(app);
-
+    app.use(onRequestHandler)
+    app.use(notFoundHandler);
+    app.use(errorHandler);
+    
   const server = http.createServer(app);
   server.listen(config.server.port, () =>
     console.log(`Server running on port ${config.server.port}`)
