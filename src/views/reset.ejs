@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Welcome</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      p {
+        line-height: 24px;
+      }
+      .social-icons {
+        text-align: center;
+        color: var(--gray-500);
+      }
+      .footer-menu {
+        text-align: center;
+        margin-top: 1rem;
+        color: var(--gray-50);
+      }
+
+      @media only screen and (max-width: 899px) {
+        body {
+          width: 90% !important;
+        }
+
+        .btn {
+          margin: 1rem 0;
+        }
+
+        footer {
+          margin-top: 2rem;
+        }
+
+        footer .flex {
+          flex-direction: column;
+        }
+
+        .slash {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body style="font-family: 'Plus Jakarta Sans', sans-serif">
+    <table
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      width="100%"
+      style="max-width: 900px; margin: 2rem auto"
+    >
+      <tr>
+        <td>
+          <img
+            src="https://res.cloudinary.com/dwaaixvxk/image/upload/v1694205989/logo_f2uyh9.png"
+            class="logo"
+            style="width: 107px; height: 32px"
+            alt=""
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div style="margin: 50px 0; max-width: 1080px">
+            <h3>Let’s reset your password</h3>
+            <p style="margin-top: 20px">
+              If you want to reset your Porchplus password , use the button below. This will take you to the secure page to reset your password.
+            </p>
+            
+            <button
+              class="btn"
+              style="
+                margin: 20px auto;
+                background: #7065f0;
+                border: none;
+                width: 250px;
+                font-size: 16px;
+                padding: 20px 45px;
+                color: white;
+              "
+            >
+              Reset your password
+            </button>
+
+            <p style="margin: 20px 0">
+              If you don’t want to reset your password, please ignore this message. Your password will not be reset.
+            </p>
+
+
+            <div class="regards">
+              <p>Thanks,</p>
+              <p>Porchplus Team</p>
+            </div>
+
+            <table
+              cellpadding="0"
+              cellspacing="0"
+              border="0"
+              style="width: 100%; margin: 50px auto"
+            >
+              <tr>
+                <td>
+                  <div class="social-icons">
+                    <img
+                      src="https://res.cloudinary.com/dwaaixvxk/image/upload/v1694205989/twitter_ijjnig.png"
+                      alt=""
+                    />
+                    <img
+                      src="https://res.cloudinary.com/dwaaixvxk/image/upload/v1694205989/facebook_dshwlj.png"
+                      alt=""
+                      style="margin-left: 20px"
+                    />
+                    <img
+                      src="https://res.cloudinary.com/dwaaixvxk/image/upload/v1694205989/instagram_kjbbxb.png"
+                      alt=""
+                      style="margin-left: 20px"
+                    />
+                  </div>
+                  <div class="footer-menu">
+                    <a href="<%= link.unsubscribe %>" style="color: #536580"
+                      >Unsubscribe</a
+                    >
+                    <span style="color: #536580; margin: 0 5px">|</span>
+                    <a href="<%= link.terms %>" style="color: #536580"
+                      >Privacy Policy</a
+                    >
+                    <span style="color: #536580; margin: 0 5px">|</span>
+                    <a href="<%= link.contact %>" style="color: #536580"
+                      >Contact Support</a
+                    >
+                  </div>
+                  <div style="text-align: center; color: #536580">
+                    <p>A25, Admiralty Homes Estate, Igbo Efon, Lekki, Lagos</p>
+                    <p>© 2022 Porchplus Inc.</p>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

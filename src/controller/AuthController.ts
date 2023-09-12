@@ -7,21 +7,47 @@ import { mailService } from '../utils/Email';
 
 export default class AuthController {
   static signUp = async (req: Request, res: Response) => {
-
-    const user = new Auth(req.body);
-
-    await user
-      .save()
-      .then((user) => {
-        res.status(200).json({
-          success: true,
-          message: 'User created successfully',
-          data: user,
-        });
-      })
-      .catch((err) => {
-        throw new Error(err);
+    try {
+      return await mailService({
+        email: 'harbiola78@gmail.com',
+        name: 'Abiola Fasanya',
+        subject: 'Welcome',
+        sender: 'Ismail Ola',
+        code: '',
+        view: 'welcome.ejs',
+        link: {
+          unsubscribe: 'https://demo.porchplus.com/unsubscribe',
+          contact: 'https://demo.porchplus.com/contact',
+          terms: 'https://demo.porchplus.com/terms',
+          redirectUrl: "https://demo.porchplus.com/login"
+        },
       });
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+
+    // const user = new Auth(req.body);
+    // await user
+    //   .save()
+    //   .then(async (user) => {
+    //     await mailService({
+    //       email: user.email,
+    //       name: user.username,
+    //       subject: 'Account Verification',
+    //       // link: config.verify_url,
+    //       code: "12345",
+    //       view: 'verify.ejs',
+    //     });
+    //     res.status(200).json({
+    //       success: true,
+    //       message: 'User created successfully',
+    //       data: user,
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     throw new Error(err);
+    //   });
   };
 
   public static authenticate = async (req: Request, res: Response) => {
@@ -66,16 +92,19 @@ export default class AuthController {
             // domain: config.client_redirect || 'http://localhost:5173',
           });
 
-          const data = {id: user._id, email: user.email, username: user.username}
+          const data = {
+            id: user._id,
+            email: user.email,
+            username: user.username,
+          };
           console.log(data);
-          
+
           return res.status(200).json({
             success: true,
             message: 'Login successful',
             data,
             accessToken: accessToken,
           });
-          
         } else {
           return res.status(400).json({
             success: false,

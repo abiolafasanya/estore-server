@@ -2,11 +2,21 @@ import dotenv from 'dotenv';
 import ejs from 'ejs';
 import { createTransport } from 'nodemailer';
 import config from '../config';
-import path from 'path'
+import path from 'path';
+
+interface MailService {
+  name?: string;
+  email: string;
+  view: string;
+  subject: string;
+  code?: string;
+  link?: any;
+  sender?: string;
+}
 
 dotenv.config();
 
-let { email, email_pwd, smtp_port, smtp_secure} = config;
+let { email, email_pwd, smtp_port, smtp_secure } = config;
 const secure = smtp_secure === 'false' ? false : true;
 const PORT = parseInt(smtp_port as string);
 
@@ -25,26 +35,27 @@ const transporter = createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
-
-export async function mailService(object: any) {
-  const data = await ejs.renderFile(path.dirname + `../view/${object.view}`, {
+export async function mailService(object: MailService) {
+  const templatesPath = path.join(__dirname, `../views/${object.view}`)
+  const data = await ejs.renderFile(templatesPath, {
     name: object.name,
-    url: object.link,
-    token: object.token,
+    otp: object.code ? object.code.split('') : null,
+    link: object.link,
+    sender: object.sender ? object.sender : ""
   });
 
   const mailOptions = {
-    from: `"Easyloan" <${process.env.EMAIL_USER}>`, // sender address
+    from: `"Porchplus" <${process.env.EMAIL_USER}>`, // sender address
     to: object.email, // recipient address// list of receivers
-    subject: 'Easy Loan - ' + object.subject,
+    subject: object.subject,
     html: data, //`${object.body}`,
   };
 
-  transporter.sendMail(mailOptions, (err, info) => {
-    if (err) {
-      console.log(err);
-    } else {
+  transporter.sendMail(mailOptions, async (err, info) => {
+    if (!err) {
       console.log('Message sent: ' + info.response);
+    } else {
+      console.log(err);
     }
   });
 }
